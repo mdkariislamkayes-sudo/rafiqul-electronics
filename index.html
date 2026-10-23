@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>রফিকুল ইলেকট্রনিক্স</title>
+    <title id="page-title">Rafiqul Electronics</title>
     <style>
         body {
           background-color: #f4f7f6;
@@ -19,16 +19,33 @@
           max-width: 450px;
           width: 100%;
           border-top: 5px solid #ff5722;
+          position: relative;
+        }
+        .lang-btn {
+          position: absolute;
+          top: 20px;
+          right: 25px;
+          background-color: #333;
+          color: white;
+          border: none;
+          padding: 5px 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 12px;
+        }
+        .lang-btn:hover {
+          background-color: #555;
         }
         h1 {
           color: #ff5722;
           text-align: center;
+          margin-top: 25px;
           margin-bottom: 5px;
           font-size: 24px;
         }
         h2 {
           color: #555;
-          font-size: 14px;
+          font-size: 13px;
           text-align: center;
           margin-bottom: 20px;
         }
@@ -43,6 +60,7 @@
           margin-bottom: 8px;
           color: #333;
           font-weight: bold;
+          font-size: 14px;
         }
         p {
           font-size: 14px;
@@ -83,32 +101,143 @@
         .submit-btn:hover {
           background-color: #e64a19;
         }
+        .reviews-display {
+          margin-top: 15px;
+          background: #fafafa;
+          padding: 10px;
+          border-radius: 8px;
+          max-height: 120px;
+          overflow-y: auto;
+          border: 1px solid #eee;
+        }
+        .review-item {
+          font-size: 12px;
+          color: #555;
+          border-bottom: 1px dashed #ddd;
+          padding-bottom: 5px;
+          margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="shop-card">
-  <h1>রফিকুল ইলেকট্রনিক্স</h1>
-  <h2>সব ধরণের ইলেকট্রনিক্যাল মালামাল মেরামত ও বিক্রয় করা হয়</h2>
+  <!-- ভাষা পরিবর্তনের বাটন -->
+  <button type="button" class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">বাংলা</button>
 
-  <ul>
-    <li>এলইডি টিভি মেরামত</li>
-    <li>ফ্যান ও মোটর মেরামত</li>
-    <li>IPS বিক্রয় ও সার্ভিসিং</li>
-    <li>হাউজ ওয়ারিং-এর কাজ</li>
-    <li>CC Camera বিক্রয়, ইনস্টলেশন ও সার্ভিসিং</li>
+  <h1 id="shop-name">Rafiqul Electronics</h1>
+  <h2 id="shop-tagline">All kinds of electrical goods repair and sales</h2>
+
+  <ul id="service-list">
+    <li>LED TV Repair</li>
+    <li>Fan & Motor Repair</li>
+    <li>IPS Sales & Servicing</li>
+    <li>House Wiring Works</li>
+    <li>CC Camera Sales, Installation & Servicing</li>
   </ul>
 
-  <p>📞 মোবাইল নম্বর: 01913-762340</p>
-  <p>📞 মোবাইল নম্বর: 01716930490</p>
-  <p>📍 দোকানের ঠিকানা: বড় দেওয়া ফকির মার্কেট, জামান স্কুলের সামনে, টঙ্গী, গাজীপুর</p>
+  <p id="phone-1">📞 Mobile: 01913-762340</p>
+  <p id="phone-2">📞 Mobile: 01716930490</p>
+  <p id="address">📍 Address: Boro Dewa Fokir Market, In front of Zaman School, Tongi, Gazipur</p>
 
   <div class="feedback-section">
-    <h3>আপনার মূল্যবান মতামত দিন:</h3>
-    <textarea placeholder="এখানে আপনার মতামত লিখুন..."></textarea>
-    <button type="button" class="submit-btn">মতামত পাঠান</button>
+    <h3 id="feedback-heading">Give your valuable feedback:</h3>
+    
+    <!-- ফর্ম সাবমিট করলে সরাসরি আপনার জিমেইলে চলে যাবে -->
+    <form action="https://formsubmit.co/mdkariislamkayes@gmail.com" method="POST" onsubmit="saveReviewLocally()">
+      <textarea id="feedback-input" name="message" placeholder="Write your feedback here..." required></textarea>
+      <button type="submit" class="submit-btn" id="submit-btn-text">Send Feedback</button>
+    </form>
+
+    <h4 id="recent-reviews-title" style="font-size: 13px; margin-top: 15px; color: #444;">Customer Reviews:</h4>
+    <div class="reviews-display" id="reviewsContainer">
+      <div class="review-item">Great service! - John Doe</div>
+    </div>
   </div>
 </div>
+
+<script>
+    let currentLang = 'en'; // প্রথমে ইংলিশ থাকবে
+
+    function toggleLanguage() {
+        const title = document.getElementById('page-title');
+        const shopName = document.getElementById('shop-name');
+        const shopTagline = document.getElementById('shop-tagline');
+        const serviceList = document.getElementById('service-list');
+        const phone1 = document.getElementById('phone-1');
+        const phone2 = document.getElementById('phone-2');
+        const address = document.getElementById('address');
+        const feedbackHeading = document.getElementById('feedback-heading');
+        const feedbackInput = document.getElementById('feedback-input');
+        const submitBtnText = document.getElementById('submit-btn-text');
+        const recentReviewsTitle = document.getElementById('recent-reviews-title');
+        const langBtn = document.getElementById('langToggleBtn');
+
+        if (currentLang === 'en') {
+            // বাংলায় রূপান্তর
+            title.innerText = "রফিকুল ইলেকট্রনিক্স";
+            shopName.innerText = "রফিকুল ইলেকট্রনিক্স";
+            shopTagline.innerText = "সব ধরণের ইলেকট্রনিক্যাল মালামাল মেরামত ও বিক্রয় করা হয়";
+            serviceList.innerHTML = `
+                <li>এলইডি টিভি মেরামত</li>
+                <li>ফ্যান ও মোটর মেরামত</li>
+                <li>IPS বিক্রয় ও সার্ভিসিং</li>
+                <li>হাউজ ওয়ারিং-এর কাজ</li>
+                <li>CC Camera বিক্রয়, ইনস্টলেশন ও সার্ভিসিং</li>
+            `;
+            phone1.innerText = "📞 মোবাইল নম্বর: 01913-762340";
+            phone2.innerText = "📞 মোবাইল নম্বর: 01716930490";
+            address.innerText = "📍 দোকানের ঠিকানা: বড় দেওয়া ফকির মার্কেট, জামান স্কুলের সামনে, টঙ্গী, গাজীপুর";
+            feedbackHeading.innerText = "আপনার মূল্যবান মতামত দিন:";
+            feedbackInput.placeholder = "এখানে আপনার মতামত লিখুন...";
+            submitBtnText.innerText = "মতামত পাঠান";
+            recentReviewsTitle.innerText = "গ্রাহকদের মতামত:";
+            langBtn.innerText = "English";
+            currentLang = 'bn';
+        } else {
+            // আবার ইংরেজিতে রূপান্তর
+            title.innerText = "Rafiqul Electronics";
+            shopName.innerText = "Rafiqul Electronics";
+            shopTagline.innerText = "All kinds of electrical goods repair and sales";
+            serviceList.innerHTML = `
+                <li>LED TV Repair</li>
+                <li>Fan & Motor Repair</li>
+                <li>IPS Sales & Servicing</li>
+                <li>House Wiring Works</li>
+                <li>CC Camera Sales, Installation & Servicing</li>
+            `;
+            phone1.innerText = "📞 Mobile: 01913-762340";
+            phone2.innerText = "📞 Mobile: 01716930490";
+            address.innerText = "📍 Address: Boro Dewa Fokir Market, In front of Zaman School, Tongi, Gazipur";
+            feedbackHeading.innerText = "Give your valuable feedback:";
+            feedbackInput.placeholder = "Write your feedback here...";
+            submitBtnText.innerText = "Send Feedback";
+            recentReviewsTitle.innerText = "Customer Reviews:";
+            langBtn.innerText = "বাংলা";
+            currentLang = 'en';
+        }
+    }
+
+    function saveReviewLocally() {
+        const text = document.getElementById('feedback-input').value;
+        if(text) {
+            let reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
+            reviews.unshift(text);
+            localStorage.setItem('shopReviews', JSON.stringify(reviews));
+        }
+    }
+
+    window.onload = function() {
+        let reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
+        if(reviews.length > 0) {
+            let container = document.getElementById('reviewsContainer');
+            container.innerHTML = '';
+            reviews.forEach(rev => {
+                container.innerHTML += `<div class="review-item">"${rev}"</div>`;
+            });
+        }
+    }
+</script>
 
 </body>
 </html>
