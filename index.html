@@ -2,242 +2,917 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Rafiqul Electronics</title>
     <style>
-        body {
-          background-color: #f4f7f6;
-          font-family: 'Arial', sans-serif;
-          display: flex;
-          justify-content: center;
-          padding: 20px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
-        .shop-card {
-          background-color: white;
-          padding: 25px;
-          border-radius: 15px;
-          box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-          max-width: 450px;
-          width: 100%;
-          border-top: 5px solid #ff5722;
-          position: relative;
+        body {
+            background-color: #eef3f8;
+            color: #0b1c3d;
+            line-height: 1.5;
+            padding-bottom: 60px;
+        }
+
+        /* টপ বার */
+        .top-bar {
+            background-color: #061530;
+            color: #ffffff;
+            padding: 8px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* নেভিগেশন বার */
+        .navbar {
+            background-color: #ffffff;
+            padding: 12px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(7, 25, 54, 0.08);
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0b2d6b;
+        }
+        .brand-title span {
+            color: #ff6a00;
+        }
+        .brand-sub {
+            font-size: 11px;
+            color: #0b2d6b;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #0b1c3d;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .nav-links a.active-pill {
+            background-color: #1652f0;
+            color: #ffffff;
+            padding: 7px 16px;
+            border-radius: 20px;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .lang-btn {
-          position: absolute;
-          top: 20px;
-          right: 25px;
-          background-color: #333;
-          color: white;
-          border: none;
-          padding: 5px 10px;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 12px;
+            background-color: #f0f4fa;
+            color: #0b1c3d;
+            border: 1px solid #cbd6e8;
+            padding: 7px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
         }
-        .lang-btn:hover {
-          background-color: #555;
+        .support-btn {
+            background: linear-gradient(90deg, #ff9900, #ff6a00);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            color: #0b1c3d;
         }
-        h1 {
-          color: #ff5722;
-          text-align: center;
-          margin-top: 25px;
-          margin-bottom: 5px;
-          font-size: 24px;
+        .menu-toggle-btn {
+            display: none;
+            background-color: #e6efff;
+            color: #0b2d6b;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
         }
-        h2 {
-          color: #555;
-          font-size: 13px;
-          text-align: center;
-          margin-bottom: 20px;
+        .mobile-menu-drawer {
+            display: none;
+            background-color: #ffffff;
+            border-top: 1px solid #e4ebf5;
+            padding: 14px 4% 18px;
+            box-shadow: 0 8px 20px rgba(7, 25, 54, 0.12);
+            position: sticky;
+            top: 62px;
+            z-index: 99;
         }
-        ul {
-          background-color: #fff9f6;
-          padding: 15px 15px 15px 30px;
-          border-radius: 8px;
-          border-left: 4px solid #ff5722;
-          margin-bottom: 20px;
+        .mobile-menu-drawer.open {
+            display: block;
         }
-        ul li {
-          margin-bottom: 8px;
-          color: #333;
-          font-weight: bold;
-          font-size: 14px;
+        .mobile-drawer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
         }
-        p {
-          font-size: 14px;
-          color: #444;
-          margin-bottom: 8px;
+        .mobile-drawer-links a {
+            text-decoration: none;
+            color: #0b1c3d;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 0;
+            display: block;
+            border-bottom: 1px solid #f0f4fa;
         }
-        .feedback-section {
-          margin-top: 20px;
-          border-top: 1px solid #eee;
-          padding-top: 15px;
+        .mobile-drawer-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
-        .feedback-section h3 {
-          font-size: 15px;
-          color: #333;
-          margin-bottom: 10px;
+        .mobile-drawer-info {
+            font-size: 12px;
+            color: #4a5b7a;
+            background-color: #f7faff;
+            padding: 10px;
+            border-radius: 8px;
         }
-        textarea {
-          width: 100%;
-          height: 70px;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          resize: none;
-          box-sizing: border-box;
-          margin-bottom: 10px;
+
+        /* হিরো ব্যানার */
+        .hero-section {
+            background: linear-gradient(135deg, #06193b 0%, #0b3d91 60%, #06193b 100%);
+            padding: 20px 4% 45px;
+        }
+        .hero-banner-img {
+            width: 100%;
+            max-height: 460px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        /* মেইন কন্টেন্ট এরিয়া */
+        .main-wrapper {
+            max-width: 1280px;
+            margin: -22px auto 0;
+            padding: 0 3%;
+        }
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 6px 20px rgba(11, 28, 61, 0.07);
+            margin-bottom: 24px;
+        }
+
+        /* সার্ভিস হেডিং ও গ্রিড */
+        .section-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0b1c3d;
+        }
+        .section-header h2 span {
+            color: #ff6a00;
+        }
+        .section-header p {
+            font-size: 14px;
+            color: #4a5b7a;
+            margin-top: 4px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+        .service-box {
+            background: #f7faff;
+            border: 1px solid #e1eaf7;
+            border-radius: 12px;
+            padding: 18px 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background-color: #e6efff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+        .service-icon img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            display: block;
+        }
+        .service-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0b1c3d;
+        }
+        .service-arrow {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #1652f0;
+            color: #ffffff;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* অ্যাবাউট ও ফিচার সেকশন */
+        .about-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1.2fr 1.5fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .shop-photo-box {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            min-height: 210px;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        .shop-photo-box img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .shop-photo-box::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(6, 22, 54, 0.15) 0%, rgba(6, 22, 54, 0.85) 100%);
+            z-index: 1;
+        }
+        .shop-photo-box h4,
+        .shop-photo-box p {
+            position: relative;
+            z-index: 2;
+        }
+        .shop-photo-box h4 {
+            font-size: 19px;
+            margin-bottom: 4px;
+        }
+        .shop-photo-box p {
+            font-size: 12px;
+            color: #e6efff;
+        }
+        .about-text-box {
+            background-color: #f7faff;
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .about-text-box h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0b1c3d;
+            margin-bottom: 8px;
+        }
+        .about-text-box h3 span {
+            color: #ff6a00;
+        }
+        .about-text-box p {
+            font-size: 13px;
+            color: #3d4f6e;
+            margin-bottom: 14px;
+        }
+        .learn-btn {
+            align-self: flex-start;
+            background-color: #07193b;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .features-panel {
+            background: linear-gradient(90deg, #061636, #0b2d6b);
+            border-radius: 14px;
+            padding: 20px 12px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            color: #ffffff;
+            text-align: center;
+        }
+        .feature-item {
+            padding: 6px 8px;
+            border-right: 1px solid rgba(255, 255, 255, 0.16);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .feature-item:last-child {
+            border-right: none;
+        }
+        .feature-icon {
+            font-size: 22px;
+        }
+        .feature-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ফিডব্যাক সেকশন */
+        .feedback-box textarea {
+            width: 100%;
+            height: 75px;
+            padding: 12px;
+            border: 1px solid #cdd8ea;
+            border-radius: 10px;
+            resize: none;
+            font-size: 14px;
+            margin-bottom: 10px;
         }
         .submit-btn {
-          background-color: #ff5722;
-          color: white;
-          border: none;
-          padding: 10px;
-          border-radius: 8px;
-          cursor: pointer;
-          width: 100%;
-          font-size: 15px;
-          font-weight: bold;
+            background: linear-gradient(90deg, #ff9900, #ff6a00);
+            color: #0b1c3d;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
         }
-        .submit-btn:hover {
-          background-color: #e64a19;
+        .reviews-list {
+            margin-top: 14px;
+            background-color: #f7faff;
+            padding: 12px;
+            border-radius: 10px;
+            max-height: 120px;
+            overflow-y: auto;
         }
-        .reviews-display {
-          margin-top: 15px;
-          background: #fafafa;
-          padding: 10px;
-          border-radius: 8px;
-          max-height: 120px;
-          overflow-y: auto;
-          border: 1px solid #eee;
+        .review-entry {
+            font-size: 13px;
+            color: #2b3b57;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #d4dfef;
         }
-        .review-item {
-          font-size: 12px;
-          color: #555;
-          border-bottom: 1px dashed #ddd;
-          padding-bottom: 5px;
-          margin-bottom: 5px;
+
+        /* নিচের স্ট্যাটাস ও কল বার */
+        .bottom-cta-bar {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            background-color: #061636;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 18px 24px;
+            align-items: center;
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffb703;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #dce6f7;
+        }
+        .call-strip {
+            background: linear-gradient(90deg, #ffae00, #ff7b00);
+            color: #061636;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .call-text-small {
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .call-numbers {
+            font-size: 15px;
+            font-weight: 800;
+        }
+        .contact-pill-btn {
+            background-color: #061636;
+            color: #ffffff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* মোবাইল বটম নেভিগেশন */
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        /* রেসপন্সিভ নিয়ম */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .about-row {
+                grid-template-columns: 1fr;
+            }
+            .bottom-cta-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 640px) {
+            body {
+                padding-bottom: 72px;
+            }
+            .top-bar,
+            .navbar .nav-actions {
+                display: none;
+            }
+            .menu-toggle-btn {
+                display: inline-flex;
+            }
+            .navbar {
+                padding: 10px 4%;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            .brand-title {
+                font-size: 19px;
+            }
+            .brand-sub {
+                font-size: 10px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero-section {
+                padding: 12px 3% 28px;
+            }
+            .hero-banner-img {
+                max-height: 220px;
+                border-radius: 10px;
+            }
+            .section-card {
+                padding: 18px 14px;
+                border-radius: 12px;
+            }
+            .section-header h2 {
+                font-size: 22px;
+            }
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .service-box {
+                padding: 12px 6px;
+                gap: 6px;
+            }
+            .service-icon {
+                width: 38px;
+                height: 38px;
+            }
+            .service-icon img {
+                width: 26px;
+                height: 26px;
+            }
+            .service-name {
+                font-size: 11px;
+            }
+            .shop-photo-box {
+                min-height: 170px;
+            }
+            .features-panel {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .feature-item {
+                border-right: none;
+            }
+            .stats-strip {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 14px 8px;
+                gap: 6px;
+            }
+            .stat-num {
+                font-size: 17px;
+            }
+            .mobile-bottom-nav {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: #061636;
+                border-top: 1px solid rgba(255, 255, 255, 0.14);
+                z-index: 200;
+                padding: 8px 0;
+                text-align: center;
+            }
+            .mobile-bottom-nav a {
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 600;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="shop-card">
-  <!-- ভাষা পরিবর্তনের বাটন -->
-  <button type="button" class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">বাংলা</button>
-
-  <h1 id="shop-name">Rafiqul Electronics</h1>
-  <h2 id="shop-tagline">All kinds of electrical goods repair and sales</h2>
-
-  <ul id="service-list">
-    <li>LED TV Repair</li>
-    <li>Fan & Motor Repair</li>
-    <li>IPS Sales & Servicing</li>
-    <li>House Wiring Works</li>
-    <li>CC Camera Sales, Installation & Servicing</li>
-  </ul>
-
-  <p id="phone-1">📞 Mobile: 01913-762340</p>
-  <p id="phone-2">📞 Mobile: 01716930490</p>
-  <p id="address">📍 Address: Boro Dewa Fokir Market, In front of Zaman School, Tongi, Gazipur</p>
-
-  <div class="feedback-section">
-    <h3 id="feedback-heading">Give your valuable feedback:</h3>
-    
-    <!-- ফর্ম সাবমিট করলে সরাসরি আপনার জিমেইলে চলে যাবে -->
-    <form action="https://formsubmit.co/mdkariislamkayes@gmail.com" method="POST" onsubmit="saveReviewLocally()">
-      <textarea id="feedback-input" name="message" placeholder="Write your feedback here..." required></textarea>
-      <button type="submit" class="submit-btn" id="submit-btn-text">Send Feedback</button>
-    </form>
-
-    <h4 id="recent-reviews-title" style="font-size: 13px; margin-top: 15px; color: #444;">Customer Reviews:</h4>
-    <div class="reviews-display" id="reviewsContainer">
-      <div class="review-item">Great service! - John Doe</div>
+    <!-- টপ বার -->
+    <div class="top-bar">
+        <div id="top-address">📍 Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur</div>
+        <div id="top-contact">✉️ mdrofiqulelectroncs@gmail.com &nbsp;|&nbsp; 📞 01913-762340 | 01716-930490</div>
     </div>
-  </div>
-</div>
 
-<script>
-    let currentLang = 'en'; // প্রথমে ইংলিশ থাকবে
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar">
+        <div class="brand-logo">
+            <div class="brand-title" id="brand-name">Rafiqul <span>Electronics</span></div>
+            <div class="brand-sub" id="brand-sub">POWERING YOUR LIFE</div>
+        </div>
 
-    function toggleLanguage() {
-        const title = document.getElementById('page-title');
-        const shopName = document.getElementById('shop-name');
-        const shopTagline = document.getElementById('shop-tagline');
-        const serviceList = document.getElementById('service-list');
-        const phone1 = document.getElementById('phone-1');
-        const phone2 = document.getElementById('phone-2');
-        const address = document.getElementById('address');
-        const feedbackHeading = document.getElementById('feedback-heading');
-        const feedbackInput = document.getElementById('feedback-input');
-        const submitBtnText = document.getElementById('submit-btn-text');
-        const recentReviewsTitle = document.getElementById('recent-reviews-title');
-        const langBtn = document.getElementById('langToggleBtn');
+        <ul class="nav-links">
+            <li><a href="#hero" class="active-pill" id="nav-home">🏠 Home</a></li>
+            <li><a href="#services" id="nav-services">Services</a></li>
+            <li><a href="#about" id="nav-about">About</a></li>
+            <li><a href="#feedback" id="nav-contact">Contact</a></li>
+        </ul>
 
-        if (currentLang === 'en') {
-            // বাংলায় রূপান্তর
-            title.innerText = "রফিকুল ইলেকট্রনিক্স";
-            shopName.innerText = "রফিকুল ইলেকট্রনিক্স";
-            shopTagline.innerText = "সব ধরণের ইলেকট্রনিক্যাল মালামাল মেরামত ও বিক্রয় করা হয়";
-            serviceList.innerHTML = `
-                <li>এলইডি টিভি মেরামত</li>
-                <li>ফ্যান ও মোটর মেরামত</li>
-                <li>IPS বিক্রয় ও সার্ভিসিং</li>
-                <li>হাউজ ওয়ারিং-এর কাজ</li>
-                <li>CC Camera বিক্রয়, ইনস্টলেশন ও সার্ভিসিং</li>
-            `;
-            phone1.innerText = "📞 মোবাইল নম্বর: 01913-762340";
-            phone2.innerText = "📞 মোবাইল নম্বর: 01716930490";
-            address.innerText = "📍 দোকানের ঠিকানা: বড় দেওয়া ফকির মার্কেট, জামান স্কুলের সামনে, টঙ্গী, গাজীপুর";
-            feedbackHeading.innerText = "আপনার মূল্যবান মতামত দিন:";
-            feedbackInput.placeholder = "এখানে আপনার মতামত লিখুন...";
-            submitBtnText.innerText = "মতামত পাঠান";
-            recentReviewsTitle.innerText = "গ্রাহকদের মতামত:";
-            langBtn.innerText = "English";
-            currentLang = 'bn';
-        } else {
-            // আবার ইংরেজিতে রূপান্তর
-            title.innerText = "Rafiqul Electronics";
-            shopName.innerText = "Rafiqul Electronics";
-            shopTagline.innerText = "All kinds of electrical goods repair and sales";
-            serviceList.innerHTML = `
-                <li>LED TV Repair</li>
-                <li>Fan & Motor Repair</li>
-                <li>IPS Sales & Servicing</li>
-                <li>House Wiring Works</li>
-                <li>CC Camera Sales, Installation & Servicing</li>
-            `;
-            phone1.innerText = "📞 Mobile: 01913-762340";
-            phone2.innerText = "📞 Mobile: 01716930490";
-            address.innerText = "📍 Address: Boro Dewa Fokir Market, In front of Zaman School, Tongi, Gazipur";
-            feedbackHeading.innerText = "Give your valuable feedback:";
-            feedbackInput.placeholder = "Write your feedback here...";
-            submitBtnText.innerText = "Send Feedback";
-            recentReviewsTitle.innerText = "Customer Reviews:";
-            langBtn.innerText = "বাংলা";
-            currentLang = 'en';
+        <div class="nav-actions">
+            <button type="button" class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌐 বাংলা</button>
+            <button type="button" class="support-btn" id="support-btn" onclick="scrollToContact()">🎧 Get Support</button>
+        </div>
+
+        <button type="button" class="menu-toggle-btn" id="menuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">☰</button>
+    </nav>
+
+    <!-- মোবাইল মেনু ড্রয়ার -->
+    <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+        <ul class="mobile-drawer-links">
+            <li><a href="#hero" id="mob-link-home" onclick="closeMobileMenu()">🏠 Home</a></li>
+            <li><a href="#services" id="mob-link-services" onclick="closeMobileMenu()">🛠️ Services</a></li>
+            <li><a href="#about" id="mob-link-about" onclick="closeMobileMenu()">🏪 About</a></li>
+            <li><a href="#feedback" id="mob-link-contact" onclick="closeMobileMenu()">✉️ Contact &amp; Feedback</a></li>
+        </ul>
+        <div class="mobile-drawer-actions">
+            <button type="button" class="lang-btn" id="mobLangBtn" onclick="toggleLanguage()">🌐 বাংলা</button>
+            <button type="button" class="support-btn" id="mobSupportBtn" onclick="scrollToContact()">🎧 Get Support</button>
+        </div>
+        <div class="mobile-drawer-info" id="mobDrawerInfo">
+            📍 Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur<br>
+            📞 01913-762340 | 01716-930490
+        </div>
+    </div>
+
+    <!-- হিরো ব্যানার -->
+    <section class="hero-section" id="hero">
+        <img id="hero-banner" class="hero-banner-img" src="banner-en.png" alt="Rafiqul Electronics Banner">
+    </section>
+
+    <!-- মূল কনটেন্ট -->
+    <div class="main-wrapper">
+
+        <!-- সার্ভিস সেকশন -->
+        <section class="section-card" id="services">
+            <div class="section-header">
+                <h2 id="services-heading">Our <span>Services</span></h2>
+                <p id="services-sub">Complete Electrical Solutions Under One Roof</p>
+            </div>
+
+            <div class="services-grid" id="services-grid">
+                <div class="service-box">
+                    <div class="service-icon"><img src="smart-tv.png" alt="LED TV Repair"></div>
+                    <div class="service-name">LED TV Repair</div>
+                    <span class="service-arrow">›</span>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon"><img src="fan.png" alt="Fan & Motor Repair"></div>
+                    <div class="service-name">Fan &amp; Motor Repair</div>
+                    <span class="service-arrow">›</span>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon"><img src="Power-transformer.png" alt="IPS Sales & Servicing"></div>
+                    <div class="service-name">IPS Sales &amp; Servicing</div>
+                    <span class="service-arrow">›</span>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon"><img src="home.png" alt="House Wiring Works"></div>
+                    <div class="service-name">House Wiring Works</div>
+                    <span class="service-arrow">›</span>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon"><img src="cctv.png" alt="CC Camera Sales & Service"></div>
+                    <div class="service-name">CC Camera Sales &amp; Service</div>
+                    <span class="service-arrow">›</span>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon"><img src="electric-motor.png" alt="Electrical Installation"></div>
+                    <div class="service-name">Electrical Installation</div>
+                    <span class="service-arrow">›</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- অ্যাবাউট ও ফিচার সেকশন -->
+        <section class="section-card" id="about">
+            <div class="about-row">
+                <div class="shop-photo-box">
+                    <img src="Shop-front.png" alt="Rafiqul Electronics Shop">
+                    <h4 id="store-card-title">Rafiqul Electronics</h4>
+                    <p id="store-card-desc">Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur</p>
+                </div>
+
+                <div class="about-text-box">
+                    <div>
+                        <h3 id="about-heading">About <span>Rafiqul Electronics</span></h3>
+                        <p id="about-desc">We are committed to providing high-quality electrical products and professional service. With years of experience, we ensure the best solution for your home and business.</p>
+                    </div>
+                    <button type="button" class="learn-btn" id="learn-more-btn">Learn More →</button>
+                </div>
+
+                <div class="features-panel">
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-label" id="feat-1">Trusted Service</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-label" id="feat-2">Fast Service</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-label" id="feat-3">Expert Team</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎧</div>
+                        <div class="feature-label" id="feat-4">24/7 Support</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ফিডব্যাক ও রিভিউ সেকশন -->
+        <section class="section-card feedback-box" id="feedback">
+            <h3 id="feedback-heading" style="margin-bottom: 10px; font-size: 18px;">Give your valuable feedback:</h3>
+            <form action="https://formsubmit.co/mdrofiqulelectroncs@gmail.com" method="POST" onsubmit="saveReviewLocally()">
+                <textarea id="feedback-input" name="message" placeholder="Write your feedback here..." required></textarea>
+                <button type="submit" class="submit-btn" id="submit-btn-text">Send Feedback</button>
+            </form>
+
+            <h4 id="recent-reviews-title" style="font-size: 14px; margin-top: 16px; color: #0b1c3d;">Customer Reviews:</h4>
+            <div class="reviews-list" id="reviewsContainer">
+                <div class="review-entry">"Great service!" - Customer</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- নিচের স্ট্যাটাস ও কল বার -->
+    <footer class="bottom-cta-bar">
+        <div class="stats-strip">
+            <div>
+                <div class="stat-num">10K+</div>
+                <div class="stat-label" id="stat-1">Happy Customers</div>
+            </div>
+            <div>
+                <div class="stat-num">5+</div>
+                <div class="stat-label" id="stat-2">Years Experience</div>
+            </div>
+            <div>
+                <div class="stat-num">100%</div>
+                <div class="stat-label" id="stat-3">Satisfaction</div>
+            </div>
+        </div>
+
+        <div class="call-strip">
+            <div>
+                <div class="call-text-small" id="call-label">Need Help? Call Us:</div>
+                <div class="call-numbers">📞 01913-762340 | 01716-930490</div>
+            </div>
+            <button type="button" class="contact-pill-btn" id="contact-us-btn" onclick="scrollToContact()">Contact Us →</button>
+        </div>
+    </footer>
+
+    <!-- মোবাইল বটম নেভিগেশন -->
+    <div class="mobile-bottom-nav">
+        <a href="#hero" id="mob-home">🏠<span>Home</span></a>
+        <a href="#services" id="mob-services">🛠️<span>Services</span></a>
+        <a href="tel:01913762340" id="mob-call">📞<span>Call Now</span></a>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobileMenuDrawer');
+            drawer.classList.toggle('open');
         }
-    }
 
-    function saveReviewLocally() {
-        const text = document.getElementById('feedback-input').value;
-        if(text) {
-            let reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
-            reviews.unshift(text);
-            localStorage.setItem('shopReviews', JSON.stringify(reviews));
+        function closeMobileMenu() {
+            const drawer = document.getElementById('mobileMenuDrawer');
+            drawer.classList.remove('open');
         }
-    }
 
-    window.onload = function() {
-        let reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
-        if(reviews.length > 0) {
-            let container = document.getElementById('reviewsContainer');
-            container.innerHTML = '';
-            reviews.forEach(rev => {
-                container.innerHTML += `<div class="review-item">"${rev}"</div>`;
-            });
+        function scrollToContact() {
+            closeMobileMenu();
+            const target = document.getElementById('feedback');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         }
-    }
-</script>
+
+        function toggleLanguage() {
+            const isEn = currentLang === 'en';
+
+            document.getElementById('page-title').innerText = isEn ? 'রফিকুল ইলেকট্রনিক্স' : 'Rafiqul Electronics';
+            document.getElementById('hero-banner').src = isEn ? 'banner-bn.png' : 'banner-en.png';
+
+            document.getElementById('top-address').innerText = isEn
+                ? '📍 বড় দেওরা, ফকির মার্কেট, জাবান স্কুলের সামনে, টঙ্গী, গাজীপুর'
+                : '📍 Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur';
+
+            document.getElementById('top-contact').innerText = isEn
+                ? '✉️ mdrofiqulelectroncs@gmail.com  |  📞 01913-762340 | 01716-930490'
+                : '✉️ mdrofiqulelectroncs@gmail.com  |  📞 01913-762340 | 01716-930490';
+
+            document.getElementById('brand-name').innerHTML = isEn
+                ? 'রফিকুল <span>ইলেকট্রনিক্স</span>'
+                : 'Rafiqul <span>Electronics</span>';
+            document.getElementById('brand-sub').innerText = isEn
+                ? 'আপনার জীবনের শক্তি'
+                : 'POWERING YOUR LIFE';
+
+            document.getElementById('nav-home').innerText = isEn ? '🏠 হোম' : '🏠 Home';
+            document.getElementById('nav-services').innerText = isEn ? 'সেবাসমূহ' : 'Services';
+            document.getElementById('nav-about').innerText = isEn ? 'পরিচিতি' : 'About';
+            document.getElementById('nav-contact').innerText = isEn ? 'যোগাযোগ' : 'Contact';
+
+            document.getElementById('langToggleBtn').innerText = isEn ? '🌐 English' : '🌐 বাংলা';
+            document.getElementById('mobLangBtn').innerText = isEn ? '🌐 English' : '🌐 বাংলা';
+            document.getElementById('support-btn').innerText = isEn ? '🎧 সাপোর্ট নিন' : '🎧 Get Support';
+            document.getElementById('mobSupportBtn').innerText = isEn ? '🎧 সাপোর্ট নিন' : '🎧 Get Support';
+
+            document.getElementById('mob-link-home').innerText = isEn ? '🏠 হোম' : '🏠 Home';
+            document.getElementById('mob-link-services').innerText = isEn ? '🛠️ সেবাসমূহ' : '🛠️ Services';
+            document.getElementById('mob-link-about').innerText = isEn ? '🏪 পরিচিতি' : '🏪 About';
+            document.getElementById('mob-link-contact').innerText = isEn ? '✉️ যোগাযোগ ও মতামত' : '✉️ Contact & Feedback';
+
+            document.getElementById('mobDrawerInfo').innerHTML = isEn
+                ? '📍 বড় দেওরা, ফকির মার্কেট, জাবান স্কুলের সামনে, টঙ্গী, গাজীপুর<br>📞 01913-762340 | 01716-930490'
+                : '📍 Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur<br>📞 01913-762340 | 01716-930490';
+
+            document.getElementById('services-heading').innerHTML = isEn
+                ? 'আমাদের <span>সেবাসমূহ</span>'
+                : 'Our <span>Services</span>';
+            document.getElementById('services-sub').innerText = isEn
+                ? 'সব ধরনের ইলেকট্রিক্যাল সমাধান একই ছাদের নিচে'
+                : 'Complete Electrical Solutions Under One Roof';
+
+            const servicesData = isEn
+                ? [
+                    ['smart-tv.png', 'এলইডি টিভি মেরামত'],
+                    ['fan.png', 'ফ্যান ও মোটর মেরামত'],
+                    ['Power-transformer.png', 'IPS বিক্রয় ও সার্ভিসিং'],
+                    ['home.png', 'হাউজ ওয়ারিং-এর কাজ'],
+                    ['cctv.png', 'CC Camera বিক্রয় ও সার্ভিসিং'],
+                    ['electric-motor.png', 'ইলেকট্রিক্যাল ইনস্টলেশন']
+                ]
+                : [
+                    ['smart-tv.png', 'LED TV Repair'],
+                    ['fan.png', 'Fan & Motor Repair'],
+                    ['Power-transformer.png', 'IPS Sales & Servicing'],
+                    ['home.png', 'House Wiring Works'],
+                    ['cctv.png', 'CC Camera Sales & Service'],
+                    ['electric-motor.png', 'Electrical Installation']
+                ];
+
+            document.getElementById('services-grid').innerHTML = servicesData.map(item => `
+                <div class="service-box">
+                    <div class="service-icon"><img src="${item[0]}" alt="${item[1]}"></div>
+                    <div class="service-name">${item[1]}</div>
+                    <span class="service-arrow">›</span>
+                </div>
+            `).join('');
+
+            document.getElementById('store-card-title').innerText = isEn ? 'রফিকুল ইলেকট্রনিক্স' : 'Rafiqul Electronics';
+            document.getElementById('store-card-desc').innerText = isEn
+                ? 'বড় দেওরা, ফকির মার্কেট, জাবান স্কুলের সামনে, টঙ্গী, গাজীপুর'
+                : 'Boro Deora, Fakir Market, In front of Jaban School, Tongi, Gazipur';
+
+            document.getElementById('about-heading').innerHTML = isEn
+                ? '<span>রফিকুল ইলেকট্রনিক্স</span> সম্পর্কে'
+                : 'About <span>Rafiqul Electronics</span>';
+            document.getElementById('about-desc').innerText = isEn
+                ? 'আমরা মানসম্মত ইলেকট্রিক্যাল পণ্য ও পেশাদার সেবা দিতে প্রতিশ্রুতিবদ্ধ। দীর্ঘ অভিজ্ঞতা নিয়ে আমরা আপনার ঘর ও ব্যবসার সেরা সমাধান নিশ্চিত করি।'
+                : 'We are committed to providing high-quality electrical products and professional service. With years of experience, we ensure the best solution for your home and business.';
+            document.getElementById('learn-more-btn').innerText = isEn ? 'বিস্তারিত জানুন →' : 'Learn More →';
+
+            document.getElementById('feat-1').innerText = isEn ? 'বিশ্বস্ত সেবা' : 'Trusted Service';
+            document.getElementById('feat-2').innerText = isEn ? 'দ্রুত সার্ভিস' : 'Fast Service';
+            document.getElementById('feat-3').innerText = isEn ? 'দক্ষ টিম' : 'Expert Team';
+            document.getElementById('feat-4').innerText = isEn ? '২৪/৭ সাপোর্ট' : '24/7 Support';
+
+            document.getElementById('feedback-heading').innerText = isEn ? 'আপনার মূল্যবান মতামত দিন:' : 'Give your valuable feedback:';
+            document.getElementById('feedback-input').placeholder = isEn ? 'এখানে আপনার মতামত লিখুন...' : 'Write your feedback here...';
+            document.getElementById('submit-btn-text').innerText = isEn ? 'মতামত পাঠান' : 'Send Feedback';
+            document.getElementById('recent-reviews-title').innerText = isEn ? 'গ্রাহকদের মতামত:' : 'Customer Reviews:';
+
+            document.getElementById('stat-1').innerText = isEn ? 'সন্তুষ্ট গ্রাহক' : 'Happy Customers';
+            document.getElementById('stat-2').innerText = isEn ? 'বছরের অভিজ্ঞতা' : 'Years Experience';
+            document.getElementById('stat-3').innerText = isEn ? 'সন্তুষ্টি' : 'Satisfaction';
+            document.getElementById('call-label').innerText = isEn ? 'সহায়তা লাগবে? কল করুন:' : 'Need Help? Call Us:';
+            document.getElementById('contact-us-btn').innerText = isEn ? 'যোগাযোগ করুন →' : 'Contact Us →';
+
+            document.getElementById('mob-home').innerHTML = isEn ? '🏠<span>হোম</span>' : '🏠<span>Home</span>';
+            document.getElementById('mob-services').innerHTML = isEn ? '🛠️<span>সেবাসমূহ</span>' : '🛠️<span>Services</span>';
+            document.getElementById('mob-call').innerHTML = isEn ? '📞<span>কল করুন</span>' : '📞<span>Call Now</span>';
+
+            currentLang = isEn ? 'bn' : 'en';
+        }
+
+        function saveReviewLocally() {
+            const text = document.getElementById('feedback-input').value.trim();
+            if (text) {
+                const reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
+                reviews.unshift(text);
+                localStorage.setItem('shopReviews', JSON.stringify(reviews));
+            }
+        }
+
+        window.onload = function () {
+            const reviews = JSON.parse(localStorage.getItem('shopReviews') || '[]');
+            if (reviews.length > 0) {
+                const container = document.getElementById('reviewsContainer');
+                container.innerHTML = '';
+                reviews.forEach(rev => {
+                    const div = document.createElement('div');
+                    div.className = 'review-entry';
+                    div.innerText = `"${rev}"`;
+                    container.appendChild(div);
+                });
+            }
+        };
+    </script>
 
 </body>
 </html>
